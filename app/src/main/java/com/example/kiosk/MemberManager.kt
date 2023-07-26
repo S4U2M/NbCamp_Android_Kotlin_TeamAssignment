@@ -1,6 +1,8 @@
 package com.example.kiosk
 
 class MemberManager {
+
+
     var memberList:ArrayList<Member> = ArrayList();
 
     init {

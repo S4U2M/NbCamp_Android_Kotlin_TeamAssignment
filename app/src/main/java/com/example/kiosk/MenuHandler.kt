@@ -28,10 +28,16 @@ class MenuHandler(private val menuManager: MenuManager) {
         outer@ do {
             // 로그인 페이지 display...
             while (true) {
+                var loginSucces:Boolean = false
                 when (mainMenu.selDisplay()) {
                     1 -> {
                         mainMenu.loginDisplay();
-                        LogIn().logIn(mm.memberList);
+                        loginSucces = LogIn(loginSucces).logIn(mm.memberList);
+                        if(loginSucces == true){
+                            break
+                        }else{
+                            continue
+                        }
                     }
 
                     2 -> {
