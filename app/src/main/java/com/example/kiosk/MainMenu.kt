@@ -32,15 +32,15 @@ class MainMenu {
         println("|------------------------------|")
         println("|            <로그인>           |")
         println("|------------------------------|")
-        println("| ID : "); val id = readLine(); println();
-        println("| PW : "); val passwd = readLine(); println();
+        print("| ID : "); val id = readLine(); println();
+        print("| PW : "); val passwd = readLine(); println();
     }
 
     fun signUpDisplay(){
         println("|------------------------------|")
         println("|          <회원 가입>          |")
         println("|------------------------------|")
-        println("| ID : "); val id = readLine(); println();         // id 중복 체크 ...
-        println("| PW : "); val passwd = readLine(); println();
+        print("| ID : "); val id = readLine(); println();         // id 중복 체크 ...
+        print("| PW : "); val passwd = readLine(); println();
     }
 }
