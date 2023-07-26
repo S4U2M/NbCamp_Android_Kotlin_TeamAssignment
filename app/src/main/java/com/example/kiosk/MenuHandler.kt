@@ -27,20 +27,24 @@ class MenuHandler(private val menuManager: MenuManager) {
 
         outer@ do {
             // 로그인 페이지 display...
-            val sel = mainMenu.selDisplay()
-            when (sel) {
-                1 -> {
-                    LogIn().logIn(mm.memberList);
-                }
+            while (true) {
+                when (mainMenu.selDisplay()) {
+                    1 -> {
+                        mainMenu.loginDisplay();
+                        LogIn().logIn(mm.memberList);
+                    }
 
-                2 -> {
-                    SignUp().signUp(mm.memberList);
-                }
+                    2 -> {
+                        mainMenu.signUpDisplay();
+                        SignUp().signUp(mm.memberList);
+                    }
 
-                else -> {
-
+                    else -> {
+                        break;
+                    }
                 }
             }
+
 
             mainMenu.display()
             val input = readLine()?.toIntOrNull()
