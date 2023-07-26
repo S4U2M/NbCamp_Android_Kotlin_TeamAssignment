@@ -45,7 +45,10 @@ class MenuManager {
         menuItems.filter { it.category == category }.forEach {
             println("${it.id}. ${it.display()}")
         }
-        println("0. 뒤로가기")
+        println("0. 뒤로가기\n")
+
+        print(" > 선택 : ")
+
     }
 
     fun findByIdAndCategory(id: Int, category: String): MenuItem? {
