@@ -19,13 +19,21 @@ class MainMenu {
 
     // 로그인 화면...
     fun selDisplay() : Int{
-        println("|------------------------------|")
-        println("| STARBUCKS에 오신걸 환영합니다.  |")
-        println("|------------------------------|")
-        println("| 1. 로그인       2. 회원가입     |");
-        println("| 3. 키오스크 종료                |");
-        print("| > 선택 : "); val sel = readLine()?.toIntOrNull();
-
+        var sel:Int
+        while (true){
+            try {
+                println("|------------------------------|")
+                println("| STARBUCKS에 오신걸 환영합니다.  |")
+                println("|------------------------------|")
+                println("| 1. 로그인       2. 회원가입     |");
+                println("| 3. 키오스크 종료                |");
+                print("| > 선택 : ");
+                 sel = readLine()!!.toInt();
+                break
+            } catch (e: NumberFormatException){
+                println("잘못 입력하였습니다.")
+            }
+        }
         return sel!!;
     }
 
