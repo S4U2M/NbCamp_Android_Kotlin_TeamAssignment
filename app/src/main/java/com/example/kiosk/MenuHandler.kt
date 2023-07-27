@@ -42,18 +42,20 @@ class MenuHandler(private val menuManager: MenuManager) {
                                 continue
                             }
                         }
-
                         2 -> {
                             mainMenu.signUpDisplay();
                             SignUp().signUp(mm.memberList);
                         }
-
-                        else -> {
-                            break;
+                        3 -> {
+                            return
+                        }
+                        else->{
+                            println("잘못입력하셨습니다.")
                         }
                     }
                 }
             }
+
             val cancel = Cancel(user!!.order.getCart()) // Cancel 객체 생성
 
 

@@ -23,6 +23,7 @@ class MainMenu {
         println("| STARBUCKS에 오신걸 환영합니다.  |")
         println("|------------------------------|")
         println("| 1. 로그인       2. 회원가입     |");
+        println("| 3. 키오스크 종료                |");
         print("| > 선택 : "); val sel = readLine()?.toIntOrNull();
 
         return sel!!;
