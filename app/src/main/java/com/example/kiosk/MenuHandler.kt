@@ -7,13 +7,14 @@ import java.text.SimpleDateFormat
 
 class MenuHandler(private val menuManager: MenuManager) {
 
-    // ------------------------- 이 부분부터 ------------------------------------------------
-    private val cart = Cart()
-    private val order = Order(cart)
-    private val currentBalance = 20.0 // 잔액을 설정
+//    // ------------------------- 이 부분부터 ------------------------------------------------
+//    private val cart = Cart()
+//    private val order = Order(cart)
+//    private val currentBalance = 20.0 // 잔액을 설정
     // ------------------------- 이 부분까지 Member로 대체 예정 -----------------------------
 
-    private val cancel = Cancel(cart) // Cancel 객체 생성
+    private var user:Member? = null
+
     private val delay = Delay()
     private val banking = Banking()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -33,14 +34,13 @@ class MenuHandler(private val menuManager: MenuManager) {
                 when (mainMenu.selDisplay()) {
                     1 -> {
                         mainMenu.loginDisplay();
-                        var user = LogIn().logIn(mm.memberList);
+                        user = LogIn().logIn(mm.memberList);
 
-                        if(user != null){
+                        if (user != null) {
                             break
-                        }else{
+                        } else {
                             continue
                         }
-
                     }
 
                     2 -> {
@@ -53,6 +53,7 @@ class MenuHandler(private val menuManager: MenuManager) {
                     }
                 }
             }
+            val cancel = Cancel(user!!.order.getCart()) // Cancel 객체 생성
 
 
             mainMenu.display()
@@ -83,7 +84,7 @@ class MenuHandler(private val menuManager: MenuManager) {
                                     println("1. 확인        2. 취소")
                                     val cartChoice = readLine()?.toIntOrNull()
                                     if (cartChoice == 1) {
-                                        cart.addItem(it)
+                                        user!!.order.getCart().addItem(it)
                                         println("${it.name} 가 장바구니에 추가되었습니다.")
                                     }
                                 } ?: println("잘못된 번호를 입력하셨습니다.")
@@ -97,13 +98,13 @@ class MenuHandler(private val menuManager: MenuManager) {
                 }
 
                 5 -> {
-                    order.printOrder()
+                    user!!.order.printOrder()
                     println("1. 주문     2. 메뉴판")
-                    println("아래와 같이 주문 하시겠습니까? (현재 주문 대기 수: ${order.getNumberOfWaitingOrders()})")
+                    println("아래와 같이 주문 하시겠습니까? (현재 주문 대기 수: ${user!!.order.getNumberOfWaitingOrders()})")
                     val userChoice = readLine()?.toIntOrNull()
                     if (userChoice == 1) {
                         if (banking.canProcess()) {
-                            order.processOrder(currentBalance)
+                            user!!.order.processOrder(user!!.balance)
                             delay.execute { println("결제가 완료되었습니다. (${dateFormat.format(Calendar.getInstance().time)})") }
                         } else {
                             println("현재 시각은 ${dateFormat.format(Calendar.getInstance().time)}입니다.")
@@ -125,18 +126,18 @@ class MenuHandler(private val menuManager: MenuManager) {
                     when (cancelChoice) {
                         1 -> {
                             cancel.cancelAll()
-                            order.onOrderCancelled()  // 전체 주문 취소 시 호출
+                            user!!.order.onOrderCancelled()  // 전체 주문 취소 시 호출
                         }
 
                         2 -> {
-                            cart.items.forEachIndexed { index, item ->
+                            user!!.order.getCart().items.forEachIndexed { index, item ->
                                 println("${index + 1}. ${item.name} | ${item.price} | ${item.description}")
                             }
-                            println("취소할 항목의 번호를 입력하세요 (1 이상 ${cart.items.size} 이하)")
+                            println("취소할 항목의 번호를 입력하세요 (1 이상 ${user!!.order.getCart().items.size} 이하)")
                             val cancelIndex = readLine()?.toIntOrNull()
                             cancelIndex?.let {
                                 cancel.cancelByIndex(it - 1)
-                                order.onOrderCancelled()  // 품목별 주문 취소 시 호출
+                                user!!.order.onOrderCancelled()  // 품목별 주문 취소 시 호출
                             }
                         }
 

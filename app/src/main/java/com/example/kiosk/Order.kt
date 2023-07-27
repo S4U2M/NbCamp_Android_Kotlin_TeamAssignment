@@ -3,6 +3,10 @@ package com.example.kiosk
 class Order(private val cart: Cart) {
     private var orderCount = 0
 
+    fun getCart(): Cart{
+        return cart;
+    }
+
     fun calculateTotalPrice(): Double {
         var totalPrice = 0.0
         cart.items.forEach { item ->
