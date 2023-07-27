@@ -29,27 +29,28 @@ class MenuHandler(private val menuManager: MenuManager) {
 
         outer@ do {
             // 로그인 페이지 display...
+            if (user == null) {
             while (true) {
+                    when (mainMenu.selDisplay()) {
+                        1 -> {
+                            mainMenu.loginDisplay();
+                            user = LogIn().logIn(mm.memberList);
 
-                when (mainMenu.selDisplay()) {
-                    1 -> {
-                        mainMenu.loginDisplay();
-                        user = LogIn().logIn(mm.memberList);
-
-                        if (user != null) {
-                            break
-                        } else {
-                            continue
+                            if (user != null) {
+                                break
+                            } else {
+                                continue
+                            }
                         }
-                    }
 
-                    2 -> {
-                        mainMenu.signUpDisplay();
-                        SignUp().signUp(mm.memberList);
-                    }
+                        2 -> {
+                            mainMenu.signUpDisplay();
+                            SignUp().signUp(mm.memberList);
+                        }
 
-                    else -> {
-                        break;
+                        else -> {
+                            break;
+                        }
                     }
                 }
             }
