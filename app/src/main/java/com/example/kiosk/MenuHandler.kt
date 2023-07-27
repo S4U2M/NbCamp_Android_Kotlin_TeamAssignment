@@ -24,16 +24,24 @@ class MenuHandler(private val menuManager: MenuManager) {
         var menuChoice: Int
         var menuChoiceCategory: String
         val mainMenu = MainMenu()
+        var loginSucces:Boolean = false
+        var id:String = ""
 
         outer@ do {
             // 로그인 페이지 display...
             while (true) {
-                var loginSucces:Boolean = false
+                loginSucces = false
+
                 when (mainMenu.selDisplay()) {
                     1 -> {
                         mainMenu.loginDisplay();
-                        loginSucces = LogIn(loginSucces).logIn(mm.memberList);
+                        var (checkLoginSucces,checkId) = LogIn(loginSucces, id).logIn(mm.memberList);
+                        loginSucces = checkLoginSucces
+                        id = checkId
+
                         if(loginSucces == true){
+                            var loginuserInfo = mm.memberList.find { it.ID == id }
+                            println("환영합니다! ${loginuserInfo?.name}님")
                             break
                         }else{
                             continue

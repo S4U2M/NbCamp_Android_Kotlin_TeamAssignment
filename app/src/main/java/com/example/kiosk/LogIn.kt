@@ -1,9 +1,9 @@
 package com.example.kiosk
 
-class LogIn(var loginSucces:Boolean) {
+class LogIn(var loginSucces:Boolean,var id:String) {
 
     // 로그인 메소드...
-    fun logIn(memberList:ArrayList<Member>): Boolean {
+    fun logIn(memberList:ArrayList<Member>): Pair<Boolean, String> {
         val mm = MemberManager()
         val mmlist = mm.memberList
 
@@ -12,7 +12,7 @@ class LogIn(var loginSucces:Boolean) {
         if(memberList.isNotEmpty()) {
 
                 print("| ID : ");
-                val id = readLine(); println();
+                id = readLine()!!; println();
                 print("| PW : ");
                 val passwd = readLine(); println();
 
@@ -27,9 +27,10 @@ class LogIn(var loginSucces:Boolean) {
                 }
 
             }else{
-                println("회원가입해주세요.")
+                println("등록된 회원이 없습니다. 회원가입을 진행해 주세요.")
+            break
             }
     }
-        return loginSucces
+        return Pair(loginSucces,id)
     }
 }
