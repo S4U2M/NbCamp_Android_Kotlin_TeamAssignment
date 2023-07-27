@@ -2,6 +2,7 @@ package com.example.kiosk
 
 class Order(private val cart: Cart) {
     private var orderCount = 0
+    private lateinit var orderType: OrderType
 
     fun getCart(): Cart{
         return cart;
@@ -26,6 +27,7 @@ class Order(private val cart: Cart) {
         return currentBalance >= calculateTotalPrice()
     }
     fun processOrder(currentBalance: Double) {
+        orderType = getOrderType() // 주문 유형을 선택
         if (hasSufficientBalance(currentBalance)) {
             printOrder()
             println("주문이 완료되었습니다. 잔돈은 ${String.format("%.1f",(currentBalance - calculateTotalPrice()))} W 입니다.")
@@ -43,5 +45,16 @@ class Order(private val cart: Cart) {
     }
     fun getNumberOfWaitingOrders(): Int {
         return orderCount
+    }
+    fun getOrderType(): OrderType {
+        println("주문 유형을 선택하세요.")
+        println("1. 매장 식사")
+        println("2. 테이크 아웃")
+        val orderTypeChoice = readLine()?.toIntOrNull()
+        return if (orderTypeChoice == 2) {
+            OrderType.TAKE_OUT
+        } else {
+            OrderType.DINE_IN
+        }
     }
 }
