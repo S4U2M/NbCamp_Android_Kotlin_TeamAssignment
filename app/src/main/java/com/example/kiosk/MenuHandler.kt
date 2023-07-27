@@ -105,7 +105,8 @@ class MenuHandler(private val menuManager: MenuManager) {
                     val userChoice = readLine()?.toIntOrNull()
                     if (userChoice == 1) {
                         if (banking.canProcess()) {
-                            user!!.order.processOrder(user!!.balance)
+                            user!!.order.processOrder(user!!)
+
                             delay.execute { println("결제가 완료되었습니다. (${dateFormat.format(Calendar.getInstance().time)})") }
                         } else {
                             println("현재 시각은 ${dateFormat.format(Calendar.getInstance().time)}입니다.")
