@@ -32,8 +32,7 @@ class MainMenu {
         println("|------------------------------|")
         println("|            <로그인>           |")
         println("|------------------------------|")
-        print("| ID : "); val id = readLine(); println();
-        print("| PW : "); val passwd = readLine(); println();
+
     }
 
     fun signUpDisplay(){

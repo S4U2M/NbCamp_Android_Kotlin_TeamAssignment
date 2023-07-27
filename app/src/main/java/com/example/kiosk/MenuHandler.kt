@@ -25,13 +25,22 @@ class MenuHandler(private val menuManager: MenuManager) {
         var menuChoiceCategory: String
         val mainMenu = MainMenu()
 
+
         outer@ do {
             // 로그인 페이지 display...
             while (true) {
+
                 when (mainMenu.selDisplay()) {
                     1 -> {
                         mainMenu.loginDisplay();
-                        LogIn().logIn(mm.memberList);
+                        var user = LogIn().logIn(mm.memberList);
+
+                        if(user != null){
+                            break
+                        }else{
+                            continue
+                        }
+
                     }
 
                     2 -> {
