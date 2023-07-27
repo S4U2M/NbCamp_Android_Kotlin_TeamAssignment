@@ -150,10 +150,11 @@ class MenuHandler(private val menuManager: MenuManager) {
 
                 0 -> {
                     println("프로그램을 종료합니다.")
+                    user = null
                 }
 
                 else -> println("잘못된 번호를 입력했어요. 다시 입력해주세요.")
             }
-        } while (menuChoice != 0)
+        } while (true)
     }
 }
