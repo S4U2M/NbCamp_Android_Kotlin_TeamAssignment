@@ -17,7 +17,7 @@ class SignUp {
                 print("| 잔액 : ")
                 val balance = readLine()!!.toDouble()
 
-                memberList.add(Member(id, passwd, name, balance))
+                memberList.add(Member(name, id, passwd, balance))
                 break
             }
         }

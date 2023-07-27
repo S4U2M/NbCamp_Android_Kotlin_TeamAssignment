@@ -10,7 +10,7 @@ class LogIn() {
             print("| ID : ");
             val id = readLine()!!; println();
             print("| PW : ");
-            val passwd = readLine(); println();
+            val passwd = readLine()!!; println();
 
             val memberInfo = memberList.find { it.ID == id && it.password == passwd }
 
@@ -21,7 +21,6 @@ class LogIn() {
                 println("로그인에 실패하였습니다. ID와 비밀번호를 다시 확인해주세요")
                 null
             }
-
         }
     }
 }
