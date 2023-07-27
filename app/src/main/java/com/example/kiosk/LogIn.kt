@@ -1,36 +1,27 @@
 package com.example.kiosk
 
-class LogIn(var loginSucces:Boolean,var id:String) {
+class LogIn() {
 
     // 로그인 메소드...
-    fun logIn(memberList:ArrayList<Member>): Pair<Boolean, String> {
-        val mm = MemberManager()
-        val mmlist = mm.memberList
+    fun logIn(memberList: ArrayList<Member>): Member? {
 
         while (true) {
 
-        if(memberList.isNotEmpty()) {
+            print("| ID : ");
+            val id = readLine()!!; println();
+            print("| PW : ");
+            val passwd = readLine(); println();
 
-                print("| ID : ");
-                id = readLine()!!; println();
-                print("| PW : ");
-                val passwd = readLine(); println();
+            val memberInfo = memberList.find { it.ID == id && it.password == passwd }
 
-                val findMember = mmlist.find { it.ID == id && it.password == passwd }
-                if (findMember != null) {
-                    println("로그인에 성공하였습니다.")
-                    loginSucces = true
-                    break
-                } else {
-                    println("로그인에 실패하였습니다. ID와 비밀번호를 다시 확인해주세요")
-                    loginSucces = false
-                }
-
-            }else{
-                println("등록된 회원이 없습니다. 회원가입을 진행해 주세요.")
-            break
+            return if (memberInfo != null) {
+                println("로그인에 성공하였습니다.")
+                memberInfo
+            } else {
+                println("로그인에 실패하였습니다. ID와 비밀번호를 다시 확인해주세요")
+                null
             }
-    }
-        return Pair(loginSucces,id)
+
+        }
     }
 }
