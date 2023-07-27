@@ -39,7 +39,5 @@ class MainMenu {
         println("|------------------------------|")
         println("|          <회원 가입>          |")
         println("|------------------------------|")
-        print("| ID : "); val id = readLine(); println();         // id 중복 체크 ...
-        print("| PW : "); val passwd = readLine(); println();
     }
 }
